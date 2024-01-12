@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	$('#btnDelete').click(deleteTown);
 	$('#btnShuffle').click(shuffleTowns);
+	$('#btnAdd').click(addTown)
 });
 
 function deleteTown() {
@@ -27,5 +28,24 @@ function shuffleTowns(){
 		let temp = towns.options[i].text;
 		towns.options[i].text = towns.options[j].text;
 		towns.options[j].text = temp;
+	}
+}
+function addTown(){
+	let townName = $('#townName').val();
+	$('#townName').val('');
+	let added = false;
+	for (let option of $('#towns option')) {
+		if (option.textContent == townName) {
+			added = true;
+			break;
+		}
+	}
+	if (!added) {
+		let option = $('<option>');
+		option.text(townName);
+		$('#towns').append(option);
+		$('#result').text(townName + " added.");
+	} else {
+		$('#result').text(townName + " already exists.");
 	}
 }
